@@ -22,6 +22,7 @@ AMyPawn::AMyPawn()
 	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
 	Body->SetupAttachment(Box);
 
+	//mesh loading
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P38_Body(TEXT("/Script/Engine.StaticMesh'/Game/P38/Mesh/SM_P38_Body.SM_P38_Body'"));
 	if (SM_P38_Body.Succeeded())
 	{
