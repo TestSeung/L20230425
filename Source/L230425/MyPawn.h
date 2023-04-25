@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+
+//#include "InputAction.h"
+
 #include "MyPawn.generated.h"
 
 class UPropellerComponent;
@@ -13,6 +16,8 @@ class UCameraComponent;
 class UFloatingPawnMovement;
 class UArrowComponent;
 class UStaticMeshComponent;
+struct FInputActionValue;
+
 
 UCLASS()
 class L230425_API AMyPawn : public APawn
@@ -61,4 +66,25 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	UFloatingPawnMovement* Movement;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	class UInputAction* FireAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	class UInputAction* PitchRollAction;
+
+	//언리얼 내 함수
+	//블루프린트를 할 수 있다.
+	//UFUNCTION(BlueprintImplementableEvent,Category = "Custom Spawn")
+	//C++과 블루프린트를 둘 다 할수있다/
+	UFUNCTION(BlueprintNativeEvent, Category = "Custom Spawn")
+	void PostSpawn();
+	void PostSpawn_Implementation(void);
+
+	void Fire(const FInputActionValue& Value);
+
+	void PitchRoll(const FInputActionValue& Value);
+
+	//지금은 로켓만 나가던 액터를 변경하여 사용가능하다
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	TSubclassOf<class AActor>Projectile;
 };

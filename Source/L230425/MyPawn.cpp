@@ -10,6 +10,12 @@
 #include "Components/ArrowComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "PropellerComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "Kismet/GameplayStatics.h"
+#include "Rocket.h"
+
+
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -86,5 +92,42 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* EnhancedInputComponent = CastChecked< UEnhancedInputComponent>(PlayerInputComponent);
+	if (EnhancedInputComponent)
+	{
+		if (FireAction)
+		{
+			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &AMyPawn::Fire);
+		}
+
+		if (PitchRollAction)
+		{
+			EnhancedInputComponent->BindAction(PitchRollAction, ETriggerEvent::Triggered, this, &AMyPawn::PitchRoll);
+		}
+	}
+}
+
+void AMyPawn::Fire(const FInputActionValue& Value)
+{
+	if (Projectile)
+	{
+		GetWorld()->SpawnActor<ARocket>(Projectile, Arrow->K2_GetComponentLocation(), Arrow->K2_GetComponentRotation());
+	}
+	//프로그래밍못한다는 전제 
+	PostSpawn();
+}
+
+void AMyPawn::PitchRoll(const FInputActionValue& Value)
+{
+	FVector2D Values = Value.Get<FVector2D>();
+	//yaw 제외
+	FRotator DesireRotation(Values.Y,0, Values.X);
+
+	AddActorLocalRotation(DesireRotation * 60.0f * UGameplayStatics::GetWorldDeltaSeconds(GetWorld()));
+}
+
+void AMyPawn::PostSpawn_Implementation(void)
+{
+	UE_LOG(LogTemp, Warning, TEXT("이건CPP"));
 }
 
