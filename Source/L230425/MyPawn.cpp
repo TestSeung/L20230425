@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/ArrowComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "PropellerComponent.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -29,10 +30,10 @@ AMyPawn::AMyPawn()
 		Body->SetStaticMesh(SM_P38_Body.Object);
 	}
 
-	Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Left"));
+	Left = CreateDefaultSubobject<UPropellerComponent>(TEXT("Left"));
 	Left->SetupAttachment(Body);
 
-	Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Right"));
+	Right = CreateDefaultSubobject<UPropellerComponent>(TEXT("Right"));
 	Right->SetupAttachment(Body);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_P38_Propeller(TEXT("/Script/Engine.StaticMesh'/Game/P38/Mesh/SM_P38_Propeller.SM_P38_Propeller'"));

@@ -10,4 +10,8 @@ AMyGameModeBase::AMyGameModeBase()
 {
 	PlayerControllerClass = AMyPlayerController::StaticClass();
 	DefaultPawnClass = AMyPawn::StaticClass();
+
+	//Engine Init
+	//Text
+	//GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("Hello"));
 }

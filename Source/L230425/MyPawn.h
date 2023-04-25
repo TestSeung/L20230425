@@ -6,12 +6,13 @@
 #include "GameFramework/Pawn.h"
 #include "MyPawn.generated.h"
 
+class UPropellerComponent;
 class UBoxComponent;
-class UStaticMeshComponent;
 class USpringArmComponent;
 class UCameraComponent;
 class UFloatingPawnMovement;
 class UArrowComponent;
+class UStaticMeshComponent;
 
 UCLASS()
 class L230425_API AMyPawn : public APawn
@@ -36,11 +37,17 @@ public:
 	UBoxComponent* Box;
 
 	UStaticMeshComponent* Body;
-	UStaticMeshComponent* Right;
-	UStaticMeshComponent* Left;
+
+	UPropellerComponent* Right;
+
+	UPropellerComponent* Left;
+
 	USpringArmComponent* SpringArm;
+
 	UCameraComponent* Camera;
+
 	UArrowComponent* Arrow;
+
 	UFloatingPawnMovement* Movement;
 
 };
