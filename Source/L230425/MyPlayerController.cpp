@@ -2,4 +2,9 @@
 
 
 #include "MyPlayerController.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubSystems.h"
 
+void AMyPlayerController::BeginPlay()
+{
+}
